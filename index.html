@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hải Sản Tươi Sống - Sản phẩm</title>
+    <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="container topbar__inner">
+            <div class="brand" aria-label="Thương hiệu">
+                <div class="logo" aria-hidden="true"></div>
+                <div>
+                    <div class="brand__name">HẢI SẢN TƯƠI SỐNG</div>
+                    <div class="brand__tag">Tươi mỗi ngày - Giao nhanh 2h</div>
+                </div>
+            </div>
+
+            <div class="search" role="search">
+                <input id="searchInput" class="search__field" type="search" placeholder="Tìm kiếm sản phẩm..." />
+            </div>
+
+            <button id="cartBtn" class="icon-btn" type="button" aria-label="Mở giỏ hàng">
+        <span aria-hidden="true">🛒</span>
+        <span>Giỏ hàng</span>
+        <span id="cartCountBadge" class="badge" style="display:none">0</span>
+      </button>
+        </div>
+
+        <div class="container nav">
+            <div class="nav__row">
+                <div class="chip chip--active" data-filter="All" id="chipAll">Tất cả</div>
+                <div class="chip" data-filter="Tôm">Tôm</div>
+                <div class="chip" data-filter="Cua">Cua</div>           
+                <div class="chip" data-filter="Cá">Cá</div>
+                <div class="chip" data-filter="Mực">Mực</div>
+                <div class="chip" data-filter="Ốc/Hàu">Ốc/Hàu</div>
+                <div class="chip" id="chipOrder">LỊCH SỬ ĐƠN HÀNG</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container main">
+        <section class="hero">
+            <div class="hero__grid" id="heroGrid">
+                <div class="heroCard">
+                    <h1 class="heroCard__title">Khám phá sản phẩm hot</h1>
+
+                </div>
+                <!-- 
+                <div class="heroCard">
+                    <h1 class="heroCard__title">Tính năng</h1>
+                    <p class="heroCard__desc">
+                        • Lọc theo danh mục
+                        <br />• Tìm kiếm
+                        <br />• Thêm/sửa/xóa trong giỏ (localStorage)
+                    </p>
+                </div>
+                -->
+            </div>
+        </section>
+
+        <div class="section-title">
+            <div>
+                <h2>Danh sách sản phẩm</h2>
+                <p>Chạm “Thêm vào giỏ” để xem giỏ hàng ở bên phải</p>
+            </div>
+            <p id="resultHint"> </p>
+        </div>
+
+        <section class="products" id="productsGrid" aria-label="Danh sách sản phẩm">
+            <!-- Render bằng JS -->
+        </section>
+    </main>
+<section class="contact">
+    <div class="container contact__grid">
+
+        <div class="contact__box">
+            <h3>🦞 Hải Sản Tươi Sống</h3>
+            <p>
+                Chuyên cung cấp hải sản tươi sống chất lượng cao,
+                giao hàng nhanh tận nơi trong ngày.
+            </p>
+        </div>
+
+        <div class="contact__box">
+            <h3>📍 Địa chỉ</h3>
+            <p>129/81 Liên Khu 5-6, Quận Bình Tân, TP.HCM</p>
+
+            <h3>📞 Hotline</h3>
+            <p>0376 027 176</p>
+
+            <h3>✉ Email</h3>
+            <p>haisan@tuoisong.vn</p>
+        </div>
+
+        <div class="contact__box">
+            <h3>⏰ Giờ mở cửa</h3>
+            <p>Thứ 2 - Chủ Nhật</p>
+            <p>07:00 - 22:00</p>
+
+            <h3>🚚 Giao hàng</h3>
+            <p>Giao nhanh nội thành 2h</p>
+        </div>
+
+        <div class="contact__box">
+            <h3>🌐 Theo dõi chúng tôi</h3>
+
+            <div class="socials">
+                <a href="#">Facebook</a>
+                <a href="#">Zalo</a>
+                <a href="#">TikTok</a>
+                <a href="#">YouTube</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+    <footer class="container footer">
+        © <span id="year"></span> • Hải Sản Tươi Sống 
+    </footer>
+
+    <!-- Cart overlay + panel -->
+    <div id="cartOverlay" class="cart-overlay" aria-hidden="true"></div>
+
+    <aside id="cartPanel" class="cart-panel" aria-label="Giỏ hàng">
+        <div class="cart-panel__header">
+            <h3 class="cart-panel__title">Giỏ hàng</h3>
+            <button id="closeCartBtn" type="button" class="icon-btn" aria-label="Đóng giỏ hàng">✕</button>
+        </div>
+
+        <div class="cart-panel__body">
+            <div id="cartEmpty" class="cart-empty" style="display:none">
+                Giỏ hàng đang trống.
+            </div>
+            <div id="cartItems"></div>
+        </div>
+
+        <div class="cart-panel__footer">
+            <div class="total-row">
+                <span>Tổng</span>
+                <strong id="cartTotal">0 ₫</strong>
+            </div>
+
+            <div class="cart-actions">
+                <button id="checkoutBtn" class="btn btn--primary" type="button">Đặt hàng ngay</button>
+                <button id="clearCartBtn" class="btn" type="button">Xóa giỏ</button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; display: none; align-items: center; justify-content: center;">
+        <div style="background: rgba(11, 18, 32, 0.95); border: 1px solid rgba(255, 255, 255, 0.15); width: min(400px, 90vw); border-radius: 16px; padding: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3 style="margin: 0;">Thông tin giao hàng</h3>
+                <button id="closeCheckoutBtn" type="button" class="icon-btn">✕</button>
+            </div>
+            <form id="checkoutForm">
+                <div style="margin-bottom: 12px;">
+                    <label style="font-size: 14px; color: #caf0f8;">Họ tên</label>
+                    <input class="search__field" id="checkoutName" style="margin-top: 6px; width: 100%; box-sizing: border-box;" required />
+                </div>
+                <div style="margin-bottom: 12px;">
+                    <label style="font-size: 14px; color: #caf0f8;">Số điện thoại</label>
+                    <input class="search__field" id="checkoutPhone" pattern="[0-9]{10}" title="Vui lòng nhập 10 chữ số" style="margin-top: 6px; width: 100%; box-sizing: border-box;" required />
+                </div>
+                <div style="margin-bottom: 12px;">
+                    <label style="font-size: 14px; color: #caf0f8;">Địa chỉ</label>
+                    <input class="search__field" id="checkoutAddress" style="margin-top: 6px; width: 100%; box-sizing: border-box;" required />
+                </div>
+                <div class="cart-actions" style="margin-top: 20px;">
+                    <button type="submit" class="btn btn--primary">Xác nhận đặt hàng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- History Modal -->
+    <div id="historyModal" style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; display: none; align-items: center; justify-content: center;">
+        <div style="background: rgba(11, 18, 32, 0.95); border: 1px solid rgba(255, 255, 255, 0.15); width: min(500px, 90vw); max-height: 90vh; border-radius: 16px; padding: 20px; display: flex; flex-direction: column;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3 style="margin: 0;">Lịch sử đơn hàng</h3>
+                <button id="closeHistoryBtn" type="button" class="icon-btn">✕</button>
+            </div>
+            <div id="historyItems" style="overflow-y: auto;"></div>
+        </div>
+    </div>
+
+    <!-- Edit Order Modal -->
+    <div id="editOrderModal" style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 120; display: none; align-items: center; justify-content: center;">
+        <div style="background: rgba(11, 18, 32, 0.95); border: 1px solid rgba(255, 255, 255, 0.15); width: min(400px, 90vw); border-radius: 16px; padding: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3 style="margin: 0;">Sửa thông tin nhận hàng</h3>
+                <button id="closeEditOrderBtn" type="button" class="icon-btn">✕</button>
+            </div>
+            <form id="editOrderForm">
+                <input type="hidden" id="editOrderIndex" />
+                <div style="margin-bottom: 12px;">
+                    <label style="font-size: 14px; color: #caf0f8;">Họ tên</label>
+                    <input class="search__field" id="editOrderName" style="margin-top: 6px; width: 100%; box-sizing: border-box;" required />
+                </div>
+                <div style="margin-bottom: 12px;">
+                    <label style="font-size: 14px; color: #caf0f8;">Số điện thoại</label>
+                    <input class="search__field" id="editOrderPhone" pattern="[0-9]{10}" title="Vui lòng nhập 10 chữ số" style="margin-top: 6px; width: 100%; box-sizing: border-box;" required />
+                </div>
+                <div style="margin-bottom: 12px;">
+                    <label style="font-size: 14px; color: #caf0f8;">Địa chỉ</label>
+                    <input class="search__field" id="editOrderAddress" style="margin-top: 6px; width: 100%; box-sizing: border-box;" required />
+                </div>
+                <div class="cart-actions" style="margin-top: 20px;">
+                    <button type="submit" class="btn btn--primary" style="background: linear-gradient(135deg, #e76f51, #f4a261); border-color: rgba(255,255,255,0.18);">Lưu thay đổi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="./app.js"></script>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
